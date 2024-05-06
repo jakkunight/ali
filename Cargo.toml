@@ -1,6 +1,6 @@
 [package]
-name = "matrix-calculator"
-version = "0.1.0"
+name = "ali"
+version = "0.0.1"
 edition = "2021"
 license = "MIT"
 
