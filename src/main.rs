@@ -9,6 +9,10 @@ use crate::utils::pause;
 
 fn menu_option() -> u8 {
     clear();
+    println!("###################################");
+    println!("## THE ALI PROJECT - @jakkunight ##");
+    println!("###################################");
+    println!();
     println!("######## MATRIX CALCULATOR ########");
     println!("Select an option: ");
     println!("(1) Matrix addition");
