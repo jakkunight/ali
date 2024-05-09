@@ -1,5 +1,5 @@
 [package]
-name = "ali"
+name = "jakkunight-ali"
 version = "0.0.1"
 description = "A simple CLI tool for matrix calculation."
 edition = "2021"
