@@ -103,8 +103,10 @@ impl Matrix {
     // INFO: Muestra la matriz en pantalla:
     pub fn display(&self) {
         for i in 0..self.rows {
+            print!("| ");
+            io::stdout().flush().unwrap();
             for j in 0..self.columns {
-                print!("| {} |", self.get(i, j).unwrap());
+                print!("{} | ", self.get(i, j).unwrap());
             }
             println!();
         }
@@ -117,33 +119,36 @@ impl Matrix {
         let mut m = Matrix::new(rows, columns);
         println!("Load the matrix data. Data is loaded as the \"matrix definition\" says. ");
         for i in 0..m.rows {
+            
             for j in 0..m.columns {
                 m.display();
-                print!("Value for [ {}, {} ]:", i, j);
-                m.set(i, j, input::<f32>(None));
-                print!("\x1b[{}A", m.rows + 1);
-                for _k in 0..(m.rows + 1) {
+                
+                m.set(i, j, input::<f32>(Some(format!("Value for element [{}][{}]", i, j))));
+                
+                for _k in 0..(rows + 1) {
                     print!("\x1b[2K");
+                    print!("\x1b[1A");
                 }
+
                 io::stdout().flush().expect("ERROR");
             }
         }
         m.display();
-        println!();
+        println!("\n");
         m
     }
 
     // INFO: Permite al usuario modificar los valores en la matriz:
     pub fn edit(&mut self) {
-        println!("Load the matrix data. Data is loaded as the \"matrix definition\" says. ");
+        println!("Edit the matrix data. Data is loaded as the \"matrix definition\" says.");
         for i in 0..self.rows {
             for j in 0..self.columns {
                 self.display();
-                print!("Value for [ {}, {} ]:", i, j);
-                self.set(i, j, input::<f32>(None));
-                print!("\x1b[{}A", self.rows + 1);
+                self.set(i, j, input::<f32>(Some(format!("Value for element [{}][{}]", i, j))));
+                
                 for _k in 0..(self.rows + 1) {
                     print!("\x1b[2K");
+                    print!("\x1b[1A");
                 }
                 io::stdout().flush().expect("ERROR");
             }

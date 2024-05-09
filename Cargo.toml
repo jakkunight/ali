@@ -3,5 +3,8 @@ name = "ali"
 version = "0.0.1"
 edition = "2021"
 license = "MIT"
+author = "jakkunight"
+homepage = "https://jakkunight.github.io/ali/"
+repo = "https://github.com/jakkunight/ali"
 
 [dependencies]

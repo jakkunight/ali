@@ -28,14 +28,18 @@ fn add_matrixes() {
     println!("####### MATRIX ADDITION ########");
     let rows = input::<usize>(Some("Input number of rows:".to_string()));
     let columns = input::<usize>(Some("Input number of columns:".to_string()));
+    println!();
     println!("########### MATRIX A ###########");
     let mut a = Matrix::new(rows, columns);
     a.edit();
+    println!();
     println!("########### MATRIX B ###########");
     let mut b = Matrix::new(rows, columns);
     b.edit();
+    println!();
     println!("############ RESULT ############");
     (a + b).display();
+    println!();
     pause();
 }
 
@@ -47,11 +51,14 @@ fn sub_matrixes() {
     println!("########### MATRIX A ###########");
     let mut a = Matrix::new(rows, columns);
     a.edit();
+    println!();
     println!("########### MATRIX B ###########");
     let mut b = Matrix::new(rows, columns);
     b.edit();
+    println!();
     println!("############ RESULT ############");
     (a - b).display();
+    println!();
     pause();
 }
 
@@ -70,6 +77,7 @@ fn multiply_two_matrixes() {
         return;
     }
     (a * b).display();
+    println!();
     pause();
 }
 
@@ -80,7 +88,7 @@ fn find_determinant() {
     println!("by the Laplace's expansion method");
     println!();
     let order = input::<usize>(Some("Insert matrix ordder:".to_string()));
-    println!("########### MATRIX A ###########");
+    println!("############ MATRIX ############");
     let mut a = Matrix::new(order, order);
     a.edit();
     println!("############ RESULT ############");

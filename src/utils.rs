@@ -13,7 +13,8 @@ pub fn input<T: FromStr>(prompt: Option<String>) -> T {
         let ans: T = match input.trim().parse() {
             Ok(r) => r,
             Err(_) => {
-                println!("PARSE ERROR.");
+                print!("\x1b[1A\x1b[{}D\x1b[2K", prompt.chars().count());
+                io::stdout().flush().unwrap();
                 continue;
             }
         };
