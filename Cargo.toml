@@ -6,6 +6,6 @@ edition = "2021"
 license = "MIT"
 author = "jakkunight"
 homepage = "https://jakkunight.github.io/ali/"
-repo = "https://github.com/jakkunight/ali"
+repository = "https://github.com/jakkunight/ali"
 
 [dependencies]
