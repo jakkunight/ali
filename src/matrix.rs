@@ -3,15 +3,16 @@ use std::{io::{self, Write}, ops::{Add, Mul, Sub}};
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct Matrix {
-    data: Vec<Vec<f32>>,
+    data: Vec<f32>,
     rows: usize,
     columns: usize,
 }
 
 impl Matrix {
-    // INFO: Creación de una matriz de ceros:
+    // INFO: Creación de una matriz vacía:
     pub fn new(rows: usize, columns: usize) -> Self {
-        let data: Vec<Vec<f32>> = vec![vec![0.0; columns]; rows];
+        let mut data: Vec<f32> = Vec::new();
+        data.resize(rows * columns, 0.0);
         Matrix {
             data,
             rows,
@@ -28,25 +29,39 @@ impl Matrix {
         self.columns
     }
 
-    // INFO: Validación de índices:
-    fn validate_indexes(&self, row: usize, column: usize) -> bool {
-        if row >= self.rows || column >= self.columns {
-            return false;
+    fn access_function(&self, row: usize, col: usize) -> usize {
+        match self.validate_indexes(row, col) {
+            Ok(_o) => {
+                return row * self.columns + col;
+            },
+            Err(_e) => panic!("Invalid index!")
         }
-        return true;
+    }
+
+    // INFO: Validación de índices:
+    fn validate_indexes(&self, row: usize, column: usize) -> Result<(), &str> {
+        if row >= self.rows || column >= self.columns {
+            return Err("Index out of range!");
+        }
+        return Ok(());
     }
 
     // INFO: Lee un elemento de la matriz:
     pub fn get(&self, row: usize, col: usize) -> Option<f32> {
-        self.data.get(row)?.get(col).cloned()
+        match self.data.get(self.access_function(row, col)) {
+            Some(s) => Some(*s),
+            None => None
+        }
     }
 
     // INFO: Escribe un elemento en la matriz:
     pub fn set(&mut self, row: usize, col: usize, value: f32) {
-        if let Some(row_vec) = self.data.get_mut(row) {
-            if let Some(cell) = row_vec.get_mut(col) {
-                *cell = value;
-            }
+        let index: usize = self.access_function(row, col);
+        match self.data.get_mut(index) {
+            Some(i) => {
+                *i = value;
+            },
+            None => return
         }
     }
 
@@ -130,7 +145,7 @@ impl Matrix {
                     print!("\x1b[1A");
                 }
 
-                io::stdout().flush().expect("ERROR");
+                io::stdout().flush().unwrap();
             }
         }
         m.display();
@@ -177,7 +192,6 @@ impl Add for Matrix {
                 result.set(i, j, sum);
             }
         }
-
         result
     }
 }
